@@ -6,12 +6,11 @@
 #include "../include/student.h"
 #include "../include/student_list.h"
 
-
-
 int main()
 {
 	srand(time(NULL) + getpid());
 	int num_of_students;
+	int sort_method;
 
 
 	printf("Enter number of students\n");
@@ -32,12 +31,12 @@ int main()
 		print_student(student_array[i]);
 	}
 
-	printf("Select sort method\n")
+	printf("Select sort method\n");
 
-	printf("1 - sort by average mark\n")
-	printf("2 - sort by age\n")
-	printf("3 - sort by year\n")
-	printf("4 - sort by semester\n")
+	printf("1 - sort by average mark\n");
+	printf("2 - sort by age\n");
+	printf("3 - sort by year\n");
+	printf("4 - sort by semester\n");
 
 	scanf("%d", &sort_method);
 	while (sort_method < 1 || sort_method > 4) {

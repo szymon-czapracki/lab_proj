@@ -1,0 +1,19 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Wextra",
+      "-g",
+      "-std=c11",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "src/student_list.o",
+      "src/student_list.c"
+    ],
+    "directory": "/home/sc/Projects/lab_proj",
+    "file": "/home/sc/Projects/lab_proj/src/student_list.c",
+    "output": "/home/sc/Projects/lab_proj/src/student_list.o"
+  }
+]

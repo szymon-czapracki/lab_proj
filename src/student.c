@@ -19,7 +19,7 @@ int generate_year() {
 }
 
 int generate_age() {
-	return 2020 - generate_year(0);
+	return 2020 - generate_year();
 }
 
 int generate_study_year() {

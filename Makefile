@@ -23,8 +23,6 @@ SRC		:= src
 # define include directory
 INCLUDE	:= include
 
-# define lib directory
-LIB		:= lib
 
 ifeq ($(OS),Windows_NT)
 MAIN	:= main.exe
@@ -47,8 +45,6 @@ endif
 # define any directories containing header files other than /usr/include
 INCLUDES	:= $(patsubst %,-I%, $(INCLUDEDIRS:%/=%))
 
-# define the C libs
-LIBS		:= $(patsubst %,-L%, $(LIBDIRS:%/=%))
 
 # define the C source files
 SOURCES		:= $(wildcard $(patsubst %,%/*.c, $(SOURCEDIRS)))
