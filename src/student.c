@@ -1,32 +1,39 @@
-#include <stdio.h>
 #include "../include/student.h"
+#include "../include/student_list.h"
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
+#include <stdio.h>
 
 
-int generate_day() {
+int generate_day()
+{
 	return (rand() % (30 - 1 + 1)) + 1;
 }
 
-int generate_month() {
+int generate_month()
+{
 	return (rand() % (12 - 1 + 1)) + 1;
 }
 
-int generate_year() {
+int generate_year()
+{
 	return (rand() % (2000 - 1965 + 1)) + 1965;
 }
 
-int generate_age() {
+int generate_age()
+{
 	return 2020 - generate_year();
 }
 
-int generate_study_year() {
+int generate_study_year()
+{
 	return (rand() % (5 - 1 + 1)) + 1;
 }
 
-int generate_semester(int year) {
+int generate_semester(int year)
+{
 	int semester;
 
 	switch (year) {
@@ -48,12 +55,13 @@ int generate_semester(int year) {
 		default:
 			semester = 1;
 			break;
-			
+
 	}
 	return semester;
 }
 
-void generate_marks(float **marks) {
+void generate_marks(float **marks)
+{
 
 	free(*marks);
 
@@ -64,11 +72,13 @@ void generate_marks(float **marks) {
 	}
 }
 
-int generate_serial_number() {
+int generate_serial_number()
+{
 	return (rand() % (2300 - 2199 + 1)) + 2199;
 }
 
-char *generate_name() {
+char *generate_name()
+{
 
 	char *name;
 
@@ -84,12 +94,15 @@ char *generate_name() {
 	return name;
 }
 
-int generate_year_of_birth(int age) {
+int generate_year_of_birth(int age)
+{
 	return 2020 - age;
 }
 
-float calculate_average(float *marks) {
-	float sum;
+float calculate_average(float *marks)
+{
+
+	float sum = 0.0;
 
 	for (int i = 0; i < 5; i++) {
 		sum += marks[i];
@@ -97,7 +110,8 @@ float calculate_average(float *marks) {
 	return sum / 5;
 }
 
-char *generate_surname() {
+char *generate_surname()
+{
 
 	char *surname;
 
@@ -112,7 +126,8 @@ char *generate_surname() {
 	return surname;
 }
 
-student generate_student() {
+student generate_student()
+{
 
 	student *new_student = malloc(sizeof(*new_student));
 
@@ -132,8 +147,10 @@ student generate_student() {
 	return *new_student;
 }
 
-void print_student(student new_student) {
-	printf("| | No. %-4d | | Name: %-10s | | Surname: %-10s | | Age: %-6d | ", new_student.serial_number,
+void print_student(student new_student)
+{
+	printf("| | No. %-4d | | Name: %-10s | | Surname: %-10s |"
+			"| Age: %-6d | ", new_student.serial_number,
 			new_student.name, new_student.surname,
 			new_student.age);
 
@@ -142,12 +159,55 @@ void print_student(student new_student) {
 				new_student.month_of_birth,
 				new_student.year_of_birth);
 
-	printf("| Year: %-3d | | Semester: %-4d |", new_student.year, new_student.semester);
+	printf("| Year: %-3d | | Semester: %-4d |", new_student.year,
+							new_student.semester);
 
 	printf(" | Marks: ");
 	for (int i = 0; i < 5; i++) {
 		printf(" %-10.2f ", new_student.marks[i]);
 	}
 	printf(" | | Average: %-4.2f | |\n", new_student.average);
+}
+
+
+student change_serial_number(student var_student, int serial_number)
+{
+	// TODO
+}
+
+student change_name(student var_student, char *name, int serial_number)
+{
+	// TODO
+}
+
+student change_surname(student var_student, char *surname, int serial_number)
+{
+	// TODO
+}
+
+student change_age(student var_student, int age, int serial_number)
+{
+	// TODO
+}
+
+student change_birth_date(student var_student, int day, int month, int year,
+							int serial_number)
+{
+	// TODO
+}
+
+student change_year(student var_student, int year, int serial_number)
+{
+	// TODO
+}
+
+student change_semester(student var_student, int semester, int serial_number)
+{
+	// TODO
+}
+
+student change_marks(student var_student, float *marks, int serial_number)
+{
+	// TODO
 }
 

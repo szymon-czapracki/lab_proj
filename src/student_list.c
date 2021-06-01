@@ -1,6 +1,7 @@
 #include "../include/student.h"
 #include "../include/student_list.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 int compare_by_average(const void *a, const void *b) {
 	student *student_1 = (student *)a;
@@ -79,5 +80,14 @@ void print_student_list(student *student_array, int num_of_students) {
 		printf("%-3d ", i);
 		print_student(student_array[i]);
 	}
+}
 
+student find_student_by_serial_number(student *student_array,
+					int num_of_students, int serial_search)
+{
+	for (int i = 0; i < num_of_students; i++) {
+		if (student_array[i].serial_number == serial_search) {
+			return student_array[i];
+		}
+	}
 }

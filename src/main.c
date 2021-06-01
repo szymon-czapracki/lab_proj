@@ -11,6 +11,7 @@ int main()
 	srand(time(NULL) + getpid());
 	int num_of_students;
 	int sort_method;
+	int search;
 
 
 	printf("Enter number of students\n");
@@ -26,31 +27,23 @@ int main()
 		student_array[i] = generate_student();
 	}
 
-	for (int i = 0; i < num_of_students; i++) {
-		printf("%-3d ", i);
-		print_student(student_array[i]);
-	}
+	print_student_list(student_array, num_of_students);
 
-	printf("Select sort method\n");
+	//scanf("%d", &sort_method);
+	//while (sort_method < 1 || sort_method > 4) {
+	//	scanf("%d", &num_of_students);
+	//}
 
-	printf("1 - sort by average mark\n");
-	printf("2 - sort by age\n");
-	printf("3 - sort by year\n");
-	printf("4 - sort by semester\n");
+	printf("Enter serial_number\n");
+	scanf("%d", &search);
 
-	scanf("%d", &sort_method);
-	while (sort_method < 1 || sort_method > 4) {
-		scanf("%d", &num_of_students);
-	}
+	print_student(find_student_by_serial_number(student_array,
+						num_of_students, search));
 
-	qsort(student_array, num_of_students, sizeof(*student_array), compare_by_average);
-
-	printf("\n\n\n");
-
-	for (int i = 0; i < num_of_students; i++) {
-		printf("%-3d ", i);
-		print_student(student_array[i]);
-	}
+	//for (int i = 0; i < num_of_students; i++) {
+	//	printf("%-3d ", i);
+	//	print_student(student_array[i]);
+	//}
 
 	return (0);
 }
