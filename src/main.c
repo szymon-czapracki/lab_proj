@@ -9,33 +9,33 @@
 
 int main()
 {
-	char *file_option = (char*) malloc(10 * sizeof(char));
-	int num_of_students, decider;
+	int num_of_students, decider = 1, serial_no;
 	student *student_array;
-	char *gen = "gen";
-	char *load = "load";
+	char *f_dec = (char*) malloc(3 * sizeof(char));
 
 	srand(time(NULL) + getpid());
 
 	printf("Do you want to generate new database or load from file"
-			"[gen/load]: ");
-	scanf("%s", file_option);
+			"[gen/lod]: \n");
+	scanf("%s", f_dec);
 
-	while (!strcmp(file_option, gen) || !strcmp(file_option, load)) {
-		scanf("%s", file_option);
+	while ((strcmp(f_dec, "gen") != 0) && (strcmp(f_dec, "lod") != 0)) {
+		scanf("%s", f_dec);
 	}
 
-	if (strcmp(file_option, gen)) {
+	if (!strcmp(f_dec, "gen")) {
 		printf("\nHow many students in database?\n");
 		scanf("%d", &num_of_students);
 		while (num_of_students <= 0) {
 			scanf("%d", &num_of_students);
 		}
 		student_array = generate_student_list(num_of_students);
-	} else if (strcmp(file_option, load)) {
+		printf("\n");
+		print_student_list(student_array, num_of_students);
+	} else if (!strcmp(f_dec, "load")) {
+		printf("Decision load\n");
 		// TODO add option to load from file
 	}
-
 
 	while (decider != 0) {
 		printf("\nWhich function would you want to tests?\n");
@@ -44,7 +44,6 @@ int main()
 		printf("3 - Test database sorting\n");
 		printf("4 - Test changing student info\n");
 		printf("5 - Test saving database to file\n");
-		printf("6 - Test adding student by user input\n");
 		printf("0 - Exit\n");
 		scanf("%d", &decider);
 
@@ -54,18 +53,27 @@ int main()
 							num_of_students);
 				break;
 			case 2:
-				// TODO
+				printf("Enter desired student serial num\n");
+				scanf("%d", &serial_no);
+				student *print_stud = find_by_serial_no(student_array,
+							num_of_students, serial_no);
+				if (print_stud != NULL) {
+					printf("\n");
+					print_student(*print_stud);
+					printf("\n");
+				} else {
+					printf("No such student found\n");
+				}
 				break;
 			case 3:
-				// TODO
+				sorting_handler(student_array,
+							num_of_students);
 				break;
 			case 4:
-				// TODO
+				setters_handler(student_array,
+							num_of_students);
 				break;
 			case 5:
-				// TODO
-				break;
-			case 6:
 				// TODO
 				break;
 			default:
