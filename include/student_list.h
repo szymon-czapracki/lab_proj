@@ -12,4 +12,5 @@ void sort_by_serial_no(student *student_array, int num_of_students);
 void print_student_list(student *student_array, int num_of_students);
 student *find_by_serial_no(student *student_array,
 				int num_of_students, int serial_search);
+void sorting_handler(student *student_array, int num_of_students);
 #endif

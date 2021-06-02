@@ -55,6 +55,44 @@ int compare_by_serial_no(const void *a, const void *b) {
 	}
 }
 
+void sorting_handler(student *student_array, int num_of_students) {
+
+	int decider;
+
+	printf("On which condition do you want to sort databse?\n");
+	printf("1 - Sort by serial number\n");
+	printf("2 - Sort by age\n");
+	printf("3 - Sort by year\n");
+	printf("4 - Sort by average mark\n");
+
+	scanf("%d", &decider);
+
+	while (decider < 1 || decider > 4) {
+		scanf("%d", &decider);
+	}
+
+	switch (decider) {
+		case 1:
+			sort_by_serial_no(student_array, num_of_students);
+			print_student_list(student_array, num_of_students);
+			break;
+		case 2:
+			sort_by_age(student_array, num_of_students);
+			print_student_list(student_array, num_of_students);
+			break;
+		case 3:
+			sort_by_year(student_array, num_of_students);
+			print_student_list(student_array, num_of_students);
+			break;
+		case 4:
+			sort_by_average(student_array, num_of_students);
+			print_student_list(student_array, num_of_students);
+			break;
+		default:
+			break;
+	}
+}
+
 void sort_by_age(student *student_array, int num_of_students) {
 	qsort(student_array, num_of_students, sizeof(*student_array),
 		compare_by_age);
