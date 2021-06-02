@@ -62,9 +62,6 @@ int generate_semester(int year)
 
 void generate_marks(float **marks)
 {
-
-	free(*marks);
-
 	*marks = malloc(5 * sizeof(float));
 
 	for (int i = 0; i < 5; i++) {
@@ -168,7 +165,7 @@ void print_student(student new_student)
 	printf(" | | Average: %-4.2f | |\n", new_student.average);
 }
 
-void setters_handler(int num_of_students, student *student_array)
+void setters_handler(student *student_array, int num_of_students)
 {
 	int decider = 0;
 	int new_ser_no, age, search_ser_no, study_year, semester;
@@ -180,9 +177,10 @@ void setters_handler(int num_of_students, student *student_array)
 	printf("Type in serial number of student to modify\n");
 	scanf("%d", &search_ser_no);
 
-	student *var_student = find_by_serial_no(student_array, search_ser_no,
-							num_of_students);
-	
+	student *var_student = find_by_serial_no(student_array,
+							num_of_students,
+							search_ser_no);
+
 	if (var_student != NULL) {
 		printf("Select which value do you want to change\n");
 		printf("1 - serial number\n");
@@ -201,33 +199,42 @@ void setters_handler(int num_of_students, student *student_array)
 
 		switch (decider) {
 			case 1:
+				printf("Enter new serial number\n");
 				scanf("%d", &new_ser_no);
 				change_serial_number(var_student, new_ser_no);
 				break;
 			case 2:
+				printf("Enter new name\n");
 				scanf("%s", new_name);
 				change_name(var_student, new_name);
 				break;
 			case 3:
+				printf("Enter new surname\n");
 				scanf("%s", new_surname);
 				change_surname(var_student, new_surname);
 				break;
 			case 4:
+				printf("Enter new age\n");
 				scanf("%d", &age);
 				change_age(var_student, age);
 				break;
 			case 5:
+				printf("Enter new day\n");
 				scanf("%d", &day);
+				printf("Enter new month\n");
 				scanf("%d", &month);
+				printf("Enter new year\n");
 				scanf("%d", &year);
 				change_birth_date(var_student, day, month,
 									year);
 				break;
 			case 6:
+				printf("Enter new year\n");
 				scanf("%d", &study_year);
 				change_year(var_student, study_year);
 				break;
 			case 7:
+				printf("Enter new semester\n");
 				scanf("%d", &semester);
 				change_semester(var_student, semester);
 				break;
@@ -246,8 +253,8 @@ void setters_handler(int num_of_students, student *student_array)
 					return;
 				}
 				if (decision == 'y') {
-					setters_handler(num_of_students,
-								student_array);
+					setters_handler(student_array,
+							num_of_students);
 				}
 		}
 	} else {
@@ -262,7 +269,7 @@ void setters_handler(int num_of_students, student *student_array)
 			return;
 		}
 		if (decision == 'y') {
-			setters_handler(num_of_students, student_array);
+			setters_handler(student_array, num_of_students);
 		}
 	}
 }
@@ -323,26 +330,25 @@ void change_semester(student *var_student, int new_semester)
 
 void change_marks(student *var_student)
 {
-	char decision;
+	char dec[5];
 	float new_mark;
 
 	for (int i = 0; i < 5; i++) {
 
-		printf("Do you want to change mark at %d (%f)? [y/n] ", i,
+		printf("Do you want to change mark at %d (%.2f)? [y/n] ", i,
 							var_student->marks[i]);
-		scanf("%c", &decision);
+		scanf("%s", dec);
 
-		while (decision != 'y' || decision != 'n') {
-			scanf("%c", &decision);
+		while (strcmp(dec, "y") != 0 && strcmp(dec, "n") != 0) {
+			scanf("%s", dec);
 		}
-		if (decision == 'n') {
-			continue;
-		}
-		if (decision == 'y') {
-			printf("Please enter new mark for position ");
+		if (strcmp(dec, "y") == 0) {
+			printf("Please enter new mark");
 			scanf("%f", &new_mark);
 			var_student->marks[i] = new_mark;
+		} else {
+			continue;
 		}
 	}
+	var_student->average = calculate_average(var_student->marks);
 }
-

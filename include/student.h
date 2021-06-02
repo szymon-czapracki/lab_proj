@@ -35,5 +35,6 @@ void change_marks(student *var_student);
 // Helper functions
 void print_student();
 void print_all_students();
+void setters_handler(student *student_array, int num_of_students);
 
 #endif
