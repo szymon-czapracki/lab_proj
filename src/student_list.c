@@ -82,12 +82,25 @@ void print_student_list(student *student_array, int num_of_students) {
 	}
 }
 
-student find_student_by_serial_number(student *student_array,
+student *find_by_serial_no(student *student_array,
 					int num_of_students, int serial_search)
 {
 	for (int i = 0; i < num_of_students; i++) {
 		if (student_array[i].serial_number == serial_search) {
-			return student_array[i];
+			return &student_array[i];
 		}
 	}
+	return NULL;
+}
+
+student *generate_student_list(int num_of_students) {
+
+	student *student_array = malloc(num_of_students *
+							sizeof(*student_array));
+
+	for (int i = 0; i < num_of_students; i++) {
+		student_array[i] = generate_student();
+	}
+
+	return student_array;
 }
