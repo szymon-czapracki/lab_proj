@@ -125,7 +125,6 @@ char *generate_surname()
 
 student generate_student()
 {
-
 	student *new_student = malloc(sizeof(*new_student));
 
 	new_student->serial_number = generate_serial_number();
@@ -165,7 +164,7 @@ void print_student(student new_student)
 	printf(" | | Average: %-4.2f | |\n", new_student.average);
 }
 
-void setters_handler(student *student_array, int num_of_students)
+void setters_handler(student *student_array)
 {
 	int decider = 0;
 	int new_ser_no, age, search_ser_no, study_year, semester;
@@ -173,6 +172,11 @@ void setters_handler(student *student_array, int num_of_students)
 	char decision;
 	char *new_name = (char*) malloc(12 * sizeof(char));
 	char *new_surname = (char*) malloc(12 * sizeof(char));
+
+	if (student_array == NULL) {
+		printf("No database present!\n");
+		return;
+	}
 
 	printf("Type in serial number of student to modify\n");
 	scanf("%d", &search_ser_no);
@@ -253,8 +257,7 @@ void setters_handler(student *student_array, int num_of_students)
 					return;
 				}
 				if (decision == 'y') {
-					setters_handler(student_array,
-							num_of_students);
+					setters_handler(student_array);
 				}
 		}
 	} else {
@@ -269,9 +272,11 @@ void setters_handler(student *student_array, int num_of_students)
 			return;
 		}
 		if (decision == 'y') {
-			setters_handler(student_array, num_of_students);
+			setters_handler(student_array);
 		}
 	}
+	free(new_surname);
+	free(new_name);
 }
 
 void change_serial_number(student *student, int new_serial_number)

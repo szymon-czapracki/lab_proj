@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+int num_of_students = 40;
+
 int compare_by_average(const void *a, const void *b) {
 	student *student_1 = (student *)a;
 	student *student_2 = (student *)b;
@@ -55,9 +57,14 @@ int compare_by_serial_no(const void *a, const void *b) {
 	}
 }
 
-void sorting_handler(student *student_array, int num_of_students) {
+void sorting_handler(student *student_array) {
 
 	int decider;
+
+	if (student_array == NULL) {
+		printf("No database present!\n");
+		return;
+	}
 
 	printf("On which condition do you want to sort databse?\n");
 	printf("1 - Sort by serial number\n");
@@ -74,19 +81,19 @@ void sorting_handler(student *student_array, int num_of_students) {
 	switch (decider) {
 		case 1:
 			sort_by_serial_no(student_array, num_of_students);
-			print_student_list(student_array, num_of_students);
+			print_student_list(student_array);
 			break;
 		case 2:
 			sort_by_age(student_array, num_of_students);
-			print_student_list(student_array, num_of_students);
+			print_student_list(student_array);
 			break;
 		case 3:
 			sort_by_year(student_array, num_of_students);
-			print_student_list(student_array, num_of_students);
+			print_student_list(student_array);
 			break;
 		case 4:
 			sort_by_average(student_array, num_of_students);
-			print_student_list(student_array, num_of_students);
+			print_student_list(student_array);
 			break;
 		default:
 			break;
@@ -113,11 +120,57 @@ void sort_by_serial_no(student *student_array, int num_of_students) {
 		compare_by_serial_no);
 }
 
-void print_student_list(student *student_array, int num_of_students) {
+void print_student_list(student *student_array) {
+
+	if (student_array == NULL) {
+		printf("No database present!\n");
+		return;
+	}
+
+	printf("\n");
+
 	for (int i = 0; i < num_of_students; i++) {
 		printf("%-3d ", i);
 		print_student(student_array[i]);
 	}
+}
+
+void fprint_student_list(student *student_array) {
+
+	if (student_array == NULL) {
+		printf("No database present!\n");
+		return;
+	}
+
+	FILE *saved = stdout;
+
+	stdout = fopen("database.txt", "a");
+	print_student_list(student_array);
+	fclose(stdout);
+	stdout = saved;
+}
+
+void print_user_desired_student(student *student_array) {
+
+	int serial_no;
+	student *to_print_student;
+
+	if (student_array == NULL) {
+		printf("No database present!\n");
+		return;
+	}
+
+	printf("Enter desired student serial num\n");
+	scanf("%d", &serial_no);
+
+	to_print_student = find_by_serial_no(student_array, num_of_students,
+								serial_no);
+	if (to_print_student != NULL) {
+		print_student(*to_print_student);
+	} else {
+		printf("No such student found\n");
+	}
+
 }
 
 student *find_by_serial_no(student *student_array,
@@ -131,7 +184,8 @@ student *find_by_serial_no(student *student_array,
 	return NULL;
 }
 
-student *generate_student_list(int num_of_students) {
+student *generate_student_list(int num_of_students)
+{
 
 	student *student_array = malloc(num_of_students *
 							sizeof(*student_array));
@@ -139,6 +193,16 @@ student *generate_student_list(int num_of_students) {
 	for (int i = 0; i < num_of_students; i++) {
 		student_array[i] = generate_student();
 	}
+
+	return student_array;
+}
+
+student *user_gen_database() {
+
+	student *student_array = NULL;
+
+	student_array = generate_student_list(num_of_students);
+	printf("Database generated!\n");
 
 	return student_array;
 }
